@@ -4,7 +4,7 @@ LABEL name="CentOS RepoSync"
 COPY syncfile.sh /tmp/syncfile.sh
 RUN echo "Performing RepoSync. Hopefully you created a volume.." && \
     yum install -y epel-release && \
-    yum update -y && \
+    yum update -y && yum install genisoimage -y && \
     chmod 0755 /tmp/syncfile.sh && \
     mkdir -p /repos && cd /repos
 
