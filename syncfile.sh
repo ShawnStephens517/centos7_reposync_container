@@ -11,9 +11,8 @@ if [ -e "$FILE" ]; then
     rm -rf $FILE
     echo "$FILE Removed. Recreating"
     read -t 3
-    genisoimage -o repos.iso *
 else 
-    echo "Creating $FILE"
-    genisoimage -o repos.iso *
+    echo "Creating repos.tgz"
+    tar -czf repos.tgz centosplus/ extras/ updates/ epel/
 fi
 
