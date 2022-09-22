@@ -13,6 +13,6 @@ if [ -e "$FILE" ]; then
     read -t 3
 else 
     echo "Creating repos.tgz"
-    tar -czf repos.tgz centosplus/ extras/ updates/ epel/
+    tar -czf repos.tgz centosplus/ extras/ updates/ epel/ | split -b 4092M - "repos.tgz.part"
 fi
 
