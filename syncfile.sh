@@ -1,8 +1,8 @@
 #!/bin/bash
-reposync -g -l -d -m --repoid=centosplus --download-metadata --newest-only
-reposync -g -l -d -m --repoid=extras --download-metadata --newest-only
-reposync -g -l -d -m --repoid=updates --download-metadata --newest-only
-reposync -g -l -d -m --repoid=epel --download-metadata --newest-only
+reposync -g -l -d -m -q --repoid=centosplus --download-metadata --newest-only
+reposync -g -l -d -m -q --repoid=extras --download-metadata --newest-only
+reposync -g -l -d -m -q --repoid=updates --download-metadata --newest-only
+reposync -g -l -d -m -q --repoid=epel --download-metadata --newest-only
 
 #Create ISO of your updated repos
 FILE=./repos.iso
@@ -13,6 +13,6 @@ if [ -e "$FILE" ]; then
     read -t 3
 else 
     echo "Creating repos.tgz"
-    tar -czf repos.tgz centosplus/ extras/ updates/ epel/ | split -b 4092M - "repos.tgz.part"
+    find * -type f -daystart -mtime -1 -exec tar -czf "repos_$(date '+%m-%d-%Y').tgz" "{}" + | split -b 4092M - "repos_$(date '+%m-%d-%Y').tgz.part"
 fi
 
