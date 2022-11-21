@@ -1,5 +1,5 @@
 # Reposyncer
-
+[![Docker](https://github.com/ShawnStephens517/centos7_reposync_container/actions/workflows/docker-publish.yml/badge.svg?branch=main)](https://github.com/ShawnStephens517/centos7_reposync_container/actions/workflows/docker-publish.yml)
 ## Project Overview
 This project is used to maintain offline Yum Repos. The included syncfile.sh is a collection
 of reposync commands for common update repos (EPEL, Updates, Extras). I run the following command
