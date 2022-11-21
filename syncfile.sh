@@ -26,6 +26,6 @@ if [ -e "$FILE" ]; then
     read -t 3
 else 
     echo "Creating repos.tgz"
-    tar -czf repos.tgz centosplus/ extras/ updates/ epel/ | split -b 4092M - "repos.tgz.part"
+    find * -type f -daystart -mtime -1 -exec tar -czf "repos_$(date '+%m-%d-%Y').tgz" "{}" + | split -b 4092M - "repos_$(date '+%m-%d-%Y').tgz.part"
 fi
 
