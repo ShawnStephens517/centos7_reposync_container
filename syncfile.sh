@@ -13,9 +13,11 @@ reposync -g -l -d -m --repoid=epel --download-metadata --newest-only
 #reposync -g -l -d -m --repoid=epel-debuginfo --newest-only --download-metadata 
 #reposync -g -l -d -m --repoid=epel-testing --newest-only --download-metadata 
 #reposync -g -l -d -m --repoid=epel-testing-debuginfo --newest-only --download-metadata 
-reposync -g -l -d -m --repoid=epel-extras --newest-only --download-metadata 
+reposync -g -l -d -m --repoid=epel-extras --newest-only --download-metadata
+reposync -g -l -d -m --repoid=os --newest-only --download-metadata
+reposync -g -l -d -m --repoid=base --newest-only --download-metadata
 
-reposync -g -l -d -m --repoid=pgdg96 --newest-only --download-metadata 
+#reposync -g -l -d -m --repoid=pgdg96 --newest-only --download-metadata 
 
 #Create ISO of your updated repos
 FILE=./repos.iso
