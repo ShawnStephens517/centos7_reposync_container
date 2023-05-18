@@ -14,7 +14,9 @@ RUN rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org && \
     rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
 
 # Add PostgreSQL repos
-RUN yum install -y --nogpgcheck https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+RUN rpm --import https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG && \
+    yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
 
 # Create directory for repos
 RUN mkdir -p /repos
