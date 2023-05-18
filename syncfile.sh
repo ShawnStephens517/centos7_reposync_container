@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define array of repo names
-REPOS=("base" "centosplus" "extras" "updates" "fasttrack" "elrepo" "elrepo-extras" "elrepo-kernel" "epel" "epel-extras" "os","pgdg96","pgdg10","pgdg11","pgdg12","pgdg13","pgdg14")
+REPOS=("base" "centosplus" "extras" "updates" "fasttrack" "elrepo" "elrepo-extras" "elrepo-kernel" "epel" "epel-extras" "os","pgdg11","pgdg12","pgdg13","pgdg14")
 
 # Download packages from each repo
 for REPO in "${REPOS[@]}"; do
