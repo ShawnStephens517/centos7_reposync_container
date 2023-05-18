@@ -1,39 +1,15 @@
 #!/bin/bash
-####
-##Download Base Packages##
-#####
-reposync -g -l -d -m --repoid=base --newest-only --download-metadata
-reposync -g -l -d -m --repoid=centosplus --download-metadata --newest-only
-reposync -g -l -d -m --repoid=extras --download-metadata --newest-only
-reposync -g -l -d -m --repoid=updates --download-metadata --newest-only
-reposync -g -l -d -m --repoid=fasttrack --download-metadata --newest-only
 
-####
-##Download Extra Packages ##
-#####
-reposync -g -l -d -m --repoid=elrepo --newest-only --download-metadata
-reposync -g -l -d -m --repoid=elrepo-extras --newest-only --download-metadata 
-reposync -g -l -d -m --repoid=elrepo-kernel --newest-only --download-metadata
-#reposync -g -l -d -m --repoid=elrepo-testing --newest-only --download-metadata
+# Define array of repo names
+REPOS=("base" "centosplus" "extras" "updates" "fasttrack" "elrepo" "elrepo-extras" "elrepo-kernel" "epel" "epel-extras" "os","pgdg96","pgdg10","pgdg11","pgdg12","pgdg13","pgdg14")
 
-reposync -g -l -d -m --repoid=epel --download-metadata --newest-only
-#reposync -g -l -d -m --repoid=epel-debuginfo --newest-only --download-metadata 
-#reposync -g -l -d -m --repoid=epel-testing --newest-only --download-metadata 
-#reposync -g -l -d -m --repoid=epel-testing-debuginfo --newest-only --download-metadata 
-reposync -g -l -d -m --repoid=epel-extras --newest-only --download-metadata
-reposync -g -l -d -m --repoid=os --newest-only --download-metadata
+# Download packages from each repo
+for REPO in "${REPOS[@]}"; do
+    reposync -g -l -d -m --repoid=$REPO --newest-only --download-metadata
+done
 
-#reposync -g -l -d -m --repoid=pgdg96 --newest-only --download-metadata 
+# Create a tarball of files that were modified within the last 30 days
+find * -type f -mtime -30 -print0 | xargs -0 tar -czf "repos_$(date '+%m-%d-%Y').tgz"
 
-#Create ISO of your updated repos
-FILE=./repos.iso
-if [ -e "$FILE" ]; then
-    echo "$FILE exists. Removing $FILE"
-    rm -rf $FILE
-    echo "$FILE Removed. Recreating"
-    read -t 3
-else 
-    echo "Creating repos.tgz"
-    find * -type f -daystart -mtime -1 -exec tar -czf "repos_$(date '+%m-%d-%Y').tgz" "{}" + | split -b 4092M - "repos_$(date '+%m-%d-%Y').tgz.part"
-fi
-
+# Split the tarball into chunks
+split -b 4096M -d -a 3 "repos_$(date '+%m-%d-%Y').tgz" "repos_$(date '+%m-%d-%Y').tgz.part"
