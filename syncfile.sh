@@ -12,4 +12,4 @@ done
 find * -type f -mtime -30 -print0 | xargs -0 tar -czf "repos_$(date '+%m-%d-%Y').tgz"
 
 # Split the tarball into chunks
-split -b 4096M -d -a 3 "repos_$(date '+%m-%d-%Y').tgz" "repos_$(date '+%m-%d-%Y').tgz.part"
+#split -b 4096M -d -a 3 "repos_$(date '+%m-%d-%Y').tgz" "repos_$(date '+%m-%d-%Y').tgz.part"
